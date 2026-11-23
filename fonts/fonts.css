@@ -1,0 +1,6 @@
+/* Schriften lokal (statt Google Fonts) – Zeichensatz latin, 13.11.2026. Lizenz: SIL Open Font License 1.1, siehe LIZENZ.txt */
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(dm-sans.woff2) format('woff2')}
+@font-face{font-family:'DM Serif Display';font-style:normal;font-weight:400;font-display:swap;src:url(dm-serif-display.woff2) format('woff2')}
+@font-face{font-family:'Montserrat';font-style:normal;font-weight:600 700;font-display:swap;src:url(montserrat.woff2) format('woff2')}
+@font-face{font-family:'Titillium Web';font-style:normal;font-weight:600;font-display:swap;src:url(titillium-web-600.woff2) format('woff2')}
+@font-face{font-family:'Titillium Web';font-style:normal;font-weight:700;font-display:swap;src:url(titillium-web-700.woff2) format('woff2')}

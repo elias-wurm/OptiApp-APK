@@ -1,14 +1,23 @@
-# Optik Falkner – Kunden-App (Prototyp)
+# Mein Optiker – Kunden-App (Prototyp, OptiApp)
 
-Web-App (`www/index.html`) + Android-Hülle via [Capacitor](https://capacitorjs.com).
+Android-Hülle via [Capacitor](https://capacitorjs.com) 7 (minSdk 23 → läuft ab Android 6) für die
+HTML-Kunden-App aus dem Repo `OptiApp` (Glas-Look). Nur Demo-Daten.
 
-## APK über GitHub bauen (empfohlen)
-1. Alle Dateien in ein GitHub-Repository hochladen (Branch `main`).
-2. Unter **Actions** startet „Android APK bauen“ automatisch (oder manuell über *Run workflow*).
-3. Nach ca. 5 Minuten im Lauf unten bei **Artifacts** → `optik-falkner-apk` herunterladen (ZIP mit der APK).
-4. APK aufs Handy kopieren und installieren („Installation aus unbekannten Quellen“ erlauben).
+## App aktualisieren
+Die App wird **nicht hier** bearbeitet, sondern im Nachbarordner `../OptiApp` (`index.html`).
+```
+./app-aktualisieren.sh        # kopiert index.html, bg.jpg, fonts/ nach www/, setzt Namen + Polyfills, erzeugt Icons aus Logo 5
+git add -A && git commit -m "App vX.Y" && git push
+```
+Benötigt lokal: `rsvg-convert`, `magick` (ImageMagick).
 
-## Lokal bauen (Android Studio / Android SDK + JDK 21 nötig)
+## APK über GitHub bauen
+1. Push auf `main` startet „Android APK bauen“ (oder manuell über *Run workflow*).
+2. Nach ca. 5 Minuten: Release **apk-latest** → `mein-optiker.apk` direkt am Handy herunterladen
+   (oder bei **Artifacts** → `mein-optiker-apk`).
+3. Installieren („Installation aus unbekannten Quellen“ erlauben). Unsignierter Debug-Build, nur zum Testen.
+
+## Lokal bauen (Android SDK + JDK 21 nötig)
 ```
 npm install
 npx cap add android
@@ -17,9 +26,3 @@ npx cap sync android
 npm run android:build
 ```
 APK: `android/app/build/outputs/apk/debug/app-debug.apk`
-
-## Web-Version (GitHub Pages)
-Pages-Quelle auf den Ordner `/www` geht nicht direkt – entweder `www/index.html` zusätzlich ins Root kopieren oder Pages per Action aus `www` deployen.
-
-## Inhalte ändern
-Nur `www/index.html` bearbeiten → pushen → neue APK wird automatisch gebaut.

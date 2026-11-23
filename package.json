@@ -1,11 +1,11 @@
 {
   "name": "optik-falkner-app",
-  "version": "1.3.0",
+  "version": "1.13.0",
   "private": true,
-  "description": "Kunden-App Optik Falkner (Perg & Dimbach) – Prototyp",
+  "description": "Kunden-App „Mein Optiker“ (OptiApp, Glas-Look) – Prototyp mit Demo-Daten",
   "scripts": {
     "android:add": "cap add android",
-    "android:icons": "capacitor-assets generate --android --iconBackgroundColor \"#c4161c\" --iconBackgroundColorDark \"#c4161c\" --splashBackgroundColor \"#26262b\" --splashBackgroundColorDark \"#121214\"",
+    "android:icons": "capacitor-assets generate --android --iconBackgroundColor \"#F0643C\" --iconBackgroundColorDark \"#F0643C\" --splashBackgroundColor \"#ECEFF3\" --splashBackgroundColorDark \"#12151B\"",
     "android:sync": "cap sync android",
     "android:build": "cd android && ./gradlew assembleDebug"
   },

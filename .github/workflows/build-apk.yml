@@ -39,27 +39,27 @@ jobs:
           ./gradlew assembleDebug --no-daemon
 
       - name: APK umbenennen
-        run: cp android/app/build/outputs/apk/debug/app-debug.apk optik-falkner.apk
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk mein-optiker.apk
 
       - name: APK prüfen (Signatur & Mindest-Android)
         run: |
           BT=$(ls -d $ANDROID_HOME/build-tools/* | sort -V | tail -1)
-          "$BT/aapt" dump badging optik-falkner.apk | grep -E "^package|sdkVersion|application-label:"
-          "$BT/apksigner" verify --print-certs optik-falkner.apk | head -3
-          ls -la optik-falkner.apk
+          "$BT/aapt" dump badging mein-optiker.apk | grep -E "^package|sdkVersion|application-label:"
+          "$BT/apksigner" verify --print-certs mein-optiker.apk | head -3
+          ls -la mein-optiker.apk
 
       - name: APK als Release veröffentlichen (direkter Download-Link)
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release delete apk-latest -y --cleanup-tag || true
-          gh release create apk-latest optik-falkner.apk \
-            --title "Optik Falkner – neueste Test-APK" \
+          gh release create apk-latest mein-optiker.apk \
+            --title "Mein Optiker – neueste Test-APK" \
             --notes "Automatisch gebaut aus Commit ${GITHUB_SHA::7}. Direkt am Handy herunterladen und installieren." \
             --target "$GITHUB_SHA"
 
       - name: APK als Download bereitstellen
         uses: actions/upload-artifact@v4
         with:
-          name: optik-falkner-apk
-          path: optik-falkner.apk
+          name: mein-optiker-apk
+          path: mein-optiker.apk

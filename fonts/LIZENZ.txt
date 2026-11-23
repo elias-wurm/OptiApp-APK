@@ -1,0 +1,6 @@
+Schriften in diesem Ordner (geladen über Google Fonts, Zeichensatz latin, 13.11.2026):
+- DM Sans – Copyright The DM Sans Project Authors
+- DM Serif Display – Copyright Colophon Foundry
+- Montserrat – Copyright The Montserrat Project Authors
+- Titillium Web – Copyright Accademia di Belle Arti di Urbino
+Alle unter der SIL Open Font License, Version 1.1: https://openfontlicense.org

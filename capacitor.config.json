@@ -1,8 +1,8 @@
 {
   "appId": "at.optikfalkner.kundenapp",
-  "appName": "Optik Falkner",
+  "appName": "Mein Optiker",
   "webDir": "www",
   "android": {
-    "backgroundColor": "#f3f2f0"
+    "backgroundColor": "#ECEFF3"
   }
 }
