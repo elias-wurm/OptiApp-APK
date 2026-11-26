@@ -522,6 +522,16 @@ nav.bottom:has(button:active) .lg-lens{transform:scale(1.06,1.12);background:rgb
 @media (prefers-reduced-motion:reduce){nav.bottom .lg-lens{transition:none}}
 /* 26.11.2026: Untertitel unter dem Logo in der Markenfarbe (z. B. Blau bei Muster Optik); Push nach oben wegwischbar */
 /* Optiker-Auswahl über dem Startbildschirm */
+/* 27.11.2026: Schriftzug im App-Kopf passt sich der Bildschirmbreite an und hält Abstand zum Filial-Feld
+   (die ältere Regel für kleine Handys wurde von der Glas-Regel .wm-top{font-size:13px} überschrieben) */
+header.top{gap:10px}
+header.top .logo{min-width:0;flex:0 1 auto}
+header.top .row{flex-shrink:0}
+header.top .wm-top{font-size:clamp(9px,2.9vw,13px);letter-spacing:clamp(.12em,.7vw,.3em);padding:clamp(3px,.9vw,4px) clamp(1px,.7vw,3px) clamp(3px,.9vw,4px) clamp(4px,1.8vw,8px)}
+header.top .wm-sub{font-size:clamp(7px,2.3vw,10.5px);letter-spacing:.05em}
+header.top .falcon{width:clamp(34px,9.5vw,46px);height:clamp(34px,9.5vw,46px)}
+header.top .store-pill #pillName{max-width:clamp(58px,22vw,120px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:359px){header.top .store-pill #pillName{max-width:54px}}
 .sheet.top{z-index:61}.scrim.top{z-index:60}
 html.brand-sub[data-gt] .wm-sub,html.brand-sub .wm-sub{color:var(--accent)!important}
 .push{touch-action:none;user-select:none;-webkit-user-select:none}
@@ -615,7 +625,7 @@ html[data-gt="light"] .scrim{background:rgba(20,25,34,.35)!important}
     <div class="row" style="gap:7px">
     <button class="store-pill" onclick="openSheet('store')" aria-label="Filiale wählen"><span class="sdot"></span><span id="pillName"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></button>
     <button class="head-btn" aria-label="Nachrichten" onclick="go('chat')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-4.6A8 8 0 1 1 21 12Z"/></svg><span class="head-badge" id="chatBadge" style="display:none"></span></button>
-    <button class="head-avatar" id="headAvatar" aria-label="Mein Profil" onclick="go('profile')">J</button>
+    <button class="head-avatar" id="headAvatar" aria-label="Mein Profil" onclick="go('profile')"></button>
     </div>
   </header>
 
@@ -708,7 +718,7 @@ html[data-gt="light"] .scrim{background:rgba(20,25,34,.35)!important}
         <button class="list-item" style="width:100%;text-align:left" onclick="demoPush()"><div class="grow">Demo: Bewertungs-Benachrichtigung zeigen</div></button>
         <button class="list-item" style="width:100%;text-align:left;color:var(--danger)" onclick="resetDemo()"><div class="grow">Demo-Daten zurücksetzen</div></button>
       </div>
-      <p class="muted-s" style="text-align:center;margin-top:20px">Prototyp v1.20 · Kundendaten sind Beispieldaten</p>
+      <p class="muted-s" style="text-align:center;margin-top:20px">Prototyp v1.21 · Kundendaten sind Beispieldaten</p>
     </section>
   </main>
 

@@ -34,9 +34,9 @@ var MUSTER_STORES={
 };
 
 var P={
-  muster:{id:'muster',name:'Muster Optik',wmTop:'MUSTER',wmSub:'OPTIK · AUGENOPTIK',accent:'#1F6A87',
+  muster:{id:'muster',name:'Muster Optik',wmTop:'MUSTER',wmSub:'AUGENOPTIK',accent:'#1F6A87',
     logo:'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI1MCIgZmlsbD0iIzFGN0E5OSIvPjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSI3Ij48Y2lyY2xlIGN4PSIzNCIgY3k9IjUyIiByPSIxMiIvPjxjaXJjbGUgY3g9IjY2IiBjeT0iNTIiIHI9IjEyIi8+PHBhdGggZD0iTTQ2IDUyaDgiLz48L2c+PC9zdmc+',
-    appDir:'',pdfTop:'MUSTER',pdfSub:'Optik · Augenoptik',mailDomain:'muster-optik.example',
+    appDir:'',pdfTop:'MUSTER',pdfSub:'Augenoptik',mailDomain:'muster-optik.example',
     behoerde:'Bezirkshauptmannschaft Musterstadt',stores:MUSTER_STORES},
   falkner:{id:'falkner',name:'Optik Falkner',wmTop:'FALKNER',wmSub:'OPTIK · SEHZENTRUM',accent:null,
     logo:null,
