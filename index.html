@@ -5,7 +5,7 @@
 <script>/* APK: Polyfills für ältere Android-WebViews */if(!Array.prototype.flat)Object.defineProperty(Array.prototype,"flat",{configurable:true,writable:true,value:function(d){d=d===undefined?1:d;return this.reduce(function(a,v){return a.concat(Array.isArray(v)&&d>0?v.flat(d-1):v)},[])}});if(!Array.prototype.flatMap)Object.defineProperty(Array.prototype,"flatMap",{configurable:true,writable:true,value:function(f,t){return this.map(f,t).flat()}});</script>
 <script>/* Runde 4: Hell/Dunkel aus den App-Einstellungen, Standard Systemeinstellung */
 (function(){var mq=matchMedia('(prefers-color-scheme: dark)');
-window.gtApply=function(t){if(t===undefined){try{t=((JSON.parse(localStorage.getItem('glass-falkner-v10'))||{}).ui||{}).theme}catch(e){}}
+window.gtApply=function(t){if(t===undefined){try{t=((JSON.parse(localStorage.getItem('glass-falkner-v11'))||{}).ui||{}).theme}catch(e){}}
  window.__gtT=t||'system';var r=(__gtT==='light'||__gtT==='dark')?__gtT:(mq.matches?'dark':'light');
  document.documentElement.setAttribute('data-gt',r);var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('content',r==='dark'?'#12151B':'#ECEFF3')};
 mq.addEventListener('change',function(){gtApply(window.__gtT)});gtApply();})();
@@ -700,7 +700,7 @@ html[data-gt="light"] .scrim{background:rgba(20,25,34,.35)!important}
         <button class="list-item" style="width:100%;text-align:left" onclick="demoPush()"><div class="grow">Demo: Bewertungs-Benachrichtigung zeigen</div></button>
         <button class="list-item" style="width:100%;text-align:left;color:var(--danger)" onclick="resetDemo()"><div class="grow">Demo-Daten zurücksetzen</div></button>
       </div>
-      <p class="muted-s" style="text-align:center;margin-top:20px">Prototyp v1.17 · Kundendaten sind Beispieldaten</p>
+      <p class="muted-s" style="text-align:center;margin-top:20px">Prototyp v1.18 · Kundendaten sind Beispieldaten</p>
     </section>
   </main>
 
@@ -764,7 +764,7 @@ const today=()=>new Date().toISOString().slice(0,10);
 // Gesetzliche Feiertage Österreich (nächste Monate) – im Dashboard änderbar
 const HOLIDAYS=[{date:'2026-10-26',label:'Nationalfeiertag'},{date:'2026-11-01',label:'Allerheiligen'},{date:'2026-12-25',label:'Christtag'},{date:'2026-12-26',label:'Stefanitag'},{date:'2027-01-01',label:'Neujahr'},{date:'2027-01-06',label:'Heilige Drei Könige'}];
 const DEFAULT = {
-  profile:{kdnr:'104772',birth:'1988-05-12',first:'Julian',last:'Karlinger',mail:'julian.karlinger@example.at',phone:'+43 660 123 4567',addr:'Musterweg 3, 4320 Perg'},
+  profile:{kdnr:'104772',birth:'1985-09-23',first:'Lukas',last:'Mayr',mail:'lukas.mayr@example.at',phone:'+43 660 123 4567',addr:'Musterweg 3, 4320 Perg'},
   store:null,
   notif:{chat:true,checkup:true,reminder:true,appt:true,review:true,offers:false},
   ui:{theme:'system',fs:1,hc:false},
@@ -785,7 +785,7 @@ const DEFAULT = {
     R:{bc:'8,5',dia:'14,3',sph:'-2,00',cyl:'–',ax:'–',add:'–'},L:{bc:'8,5',dia:'14,3',sph:'-2,25',cyl:'–',ax:'–',add:'–'},
     price:64.90,stock:{R:23,L:23,updated:addDays(0)}},
   who:'me',
-  family:[{id:'k1',first:'Lena',last:'Karlinger',relation:'Tochter',birth:'2017',lenses:null,
+  family:[{id:'k1',first:'Lena',last:'Mayr',relation:'Tochter',birth:'2017',lenses:null,
     glasses:[{id:'k1g1',date:'2026-07-08',note:'Myopie-Management-Gläser',
       R:{sph:'-1,25',cyl:'–',ax:'–',add:'–'},L:{sph:'-1,50',cyl:'-0,25',ax:'170',add:'–'},pd:'28,0 / 28,5',
       kasko:true,
@@ -828,7 +828,8 @@ const kaskoLabel=m=>m%12===0?(m/12)+(m===12?' Jahr':' Jahre'):m+' Monate';
 // Auftragsstatus: nur noch Offen / In Bearbeitung / Abgeschlossen
 const normStatus=s=>({'Eingegangen':'Offen','In Prüfung':'Offen','Wird bereitgelegt':'Offen','Versand vorbereitet':'Offen','In Arbeit':'In Bearbeitung','Abholbereit':'Abgeschlossen','Versendet':'Abgeschlossen'})[s]||s;
 let S;
-try{S=JSON.parse(localStorage.getItem('glass-falkner-v10'))}catch(e){}
+try{localStorage.removeItem('glass-falkner-v10');localStorage.removeItem('glass-falkner-dash-v1')}catch(e){} /* 26.11.2026: Demo-Daten mit neuen Beispielnamen – alte Speicherstände verwerfen */
+try{S=JSON.parse(localStorage.getItem('glass-falkner-v11'))}catch(e){}
 const FIRST_RUN=!S;
 if(!S) S=JSON.parse(JSON.stringify(DEFAULT));
 S.ui=S.ui||{theme:'system',fs:1,hc:false}; S.storeCfg=S.storeCfg||{}; (S.tickets||[]).forEach(t=>t.status=normStatus(t.status));
@@ -851,7 +852,7 @@ function applyUI(){
 }
 applyStoreCfg();
 let quotaWarned=false;
-function persist(){try{localStorage.setItem('glass-falkner-v10',JSON.stringify(S))}catch(e){if(!quotaWarned&&typeof toast==='function'){quotaWarned=true;toast('Speicher des Prototyps ist voll – ältere Fotos bitte löschen')}}}
+function persist(){try{localStorage.setItem('glass-falkner-v11',JSON.stringify(S))}catch(e){if(!quotaWarned&&typeof toast==='function'){quotaWarned=true;toast('Speicher des Prototyps ist voll – ältere Fotos bitte löschen')}}}
 
 const fmtDate=(iso,opt={day:'2-digit',month:'2-digit',year:'numeric'})=>new Date(iso+'T12:00').toLocaleDateString('de-AT',opt);
 const eur=v=>v.toLocaleString('de-AT',{style:'currency',currency:'EUR'});
@@ -1115,7 +1116,7 @@ function saveProfile(){
   persist();render();toast('Profil gespeichert');
 }
 function cancelAppt(id){if(confirm('Termin wirklich stornieren?')){S.appts=S.appts.filter(a=>a.id!==id);persist();render();toast('Termin storniert')}}
-function resetDemo(){if(confirm('Alle Demo-Daten zurücksetzen? Die App startet danach wie beim ersten Öffnen.')){try{localStorage.removeItem('glass-falkner-v10')}catch(e){};location.href=location.pathname}}
+function resetDemo(){if(confirm('Alle Demo-Daten zurücksetzen? Die App startet danach wie beim ersten Öffnen.')){try{localStorage.removeItem('glass-falkner-v11')}catch(e){};location.href=location.pathname}}
 // Brillenpass als echte PDF-Datei (ohne externe Bibliothek)
 const PDF_MAP={'€':128,'‚':130,'„':132,'…':133,'–':150,'—':151,'“':147,'”':148,'‘':145,'’':146};
 const pdfTxt=t=>[...String(t)].map(ch=>{const c=PDF_MAP[ch]||ch.charCodeAt(0);return c<256?String.fromCharCode(c):'?'}).join('').replace(/[\\()]/g,m=>'\\'+m);
@@ -1195,7 +1196,7 @@ function demoPush(){
 const dashAlive=()=>{try{return Date.now()-(+localStorage.getItem('glass-falkner-dash-alive')||0)<15000}catch(e){return false}};
 // Live-Verbindung zum Dashboard (gleicher Browser): Änderungen sofort übernehmen
 window.addEventListener('storage',e=>{
-  if(e.key!=='glass-falkner-v10'||!e.newValue)return;
+  if(e.key!=='glass-falkner-v11'||!e.newValue)return;
   let n;try{n=JSON.parse(e.newValue)}catch(x){return}
   const before=new Set(S.chat.map(m=>m.id)); S=n; S.ui=S.ui||{theme:'system',fs:1,hc:false};
   const fresh=S.chat.filter(m=>!before.has(m.id)&&m.from!=='me');
@@ -1701,7 +1702,7 @@ function onbRender(){
   if(onb.step===0) h=`<div class="hero-logo"><img src="${logo}" alt=""><div class="wordmark" style="align-items:center"><span class="wm-top" style="font-size:18px;padding:6px 6px 6px 12px">FALKNER</span><span class="wm-sub" style="font-size:14px">OPTIK · SEHZENTRUM</span></div></div>
     <h1 style="text-align:center;font-size:28px">Willkommen!</h1><p class="sub" style="text-align:center;margin-top:6px">Brillenpass, Kontaktlinsen, Termine und der direkte Draht zu Ihrem Optiker – alles in einer App.</p>
     <button class="btn accent" style="margin-top:28px" onclick="onb.mode='existing';onb.step=1;onbRender()">Anmelden</button>
-    <button class="btn outline" style="margin-top:22px" onclick="onbDemo()">Demo-Login (Julian Karlinger)</button>
+    <button class="btn outline" style="margin-top:22px" onclick="onbDemo()">Demo-Login (Lukas Mayr)</button>
     <p class="muted-s" style="text-align:center;margin-top:10px">Meldet Sie direkt mit dem Demo-Kunden an (Kundennummer <b>104772</b>).</p>`;
   if(onb.step===1&&onb.mode==='existing') h=onbSteps(1)+`<h1 style="font-size:26px">Konto verknüpfen</h1><p class="sub">Ihre Kundennummer finden Sie auf Ihrer Rechnung oder Kundenkarte${inv?' – sie wurde aus Ihrer Einladung übernommen':''}.</p>
     <label class="f">Kundennummer</label><input class="input" id="oKd" inputmode="numeric" value="${esc(inv||'')}" placeholder="z. B. 104772">
@@ -1725,7 +1726,7 @@ function onbDemo(){S=JSON.parse(JSON.stringify(DEFAULT));onb.mode='existing';onb
 function onbLink(){
   const kd=document.getElementById('oKd').value.replace(/\s/g,''), err=document.getElementById('oErr');
   if(kd===DEFAULT.profile.kdnr){S=JSON.parse(JSON.stringify(DEFAULT));onb.step=2;onbRender();return}
-  let inv=null; try{const D=JSON.parse(localStorage.getItem('glass-falkner-dash-v1'));inv=D&&D.customers.find(c=>c.kdnr===kd)}catch(e){}
+  let inv=null; try{const D=JSON.parse(localStorage.getItem('glass-falkner-dash-v2'));inv=D&&D.customers.find(c=>c.kdnr===kd)}catch(e){}
   if(inv){S=blankAccount(inv.name.split(' ')[0],inv.name.split(' ').slice(1).join(' '),inv.mail,inv.phone,kd);S.store=inv.store;onb.step=2;onbRender();return}
   err.textContent='Diese Kundennummer kennen wir nicht. Demo: 104772 – oder ein im Dashboard eingeladener Kunde.';
 }
