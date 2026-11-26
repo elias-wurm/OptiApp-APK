@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Holt die aktuelle Kunden-App aus dem Nachbarordner ../OptiApp nach www/
-# und erzeugt die Icon-/Splash-Vorlagen in assets/ aus Logo 5.
+# und erzeugt die Icon-/Splash-Vorlagen in assets/ aus Logo 4 (website/img/icon.svg).
 # Benötigt: rsvg-convert, magick (ImageMagick). Danach committen + pushen → GitHub baut die APK.
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -21,7 +21,7 @@ POLY='<script>/* APK: Polyfills für ältere Android-WebViews */if(!Array.protot
 sed -i "0,/<meta charset=\"UTF-8\">/s|<meta charset=\"UTF-8\">|<meta charset=\"UTF-8\">\n$POLY|" www/index.html
 rm -rf fonts && cp -r www/index.html www/bg.jpg www/fonts .   # Root-Kopie für GitHub Pages (wie bisher)
 
-# --- Icons aus Logo 5 ---------------------------------------------------
+# --- Icons aus Logo 4 ---------------------------------------------------
 LOGO=assets/logo5.svg
 cp "$SRC/website/img/icon.svg" "$LOGO"
 ORANGE='#F0643C'

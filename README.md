@@ -1,12 +1,12 @@
 # Mein Optiker – Kunden-App (Prototyp, OptiApp)
 
-Android-Hülle via [Capacitor](https://capacitorjs.com) 7 (minSdk 23 → läuft ab Android 6) für die
+Android-Hülle via [Capacitor](https://capacitorjs.com) 8 (minSdk 24, targetSdk 36 → läuft ab Android 7) für die
 HTML-Kunden-App aus dem Repo `OptiApp` (Glas-Look). Nur Demo-Daten.
 
 ## App aktualisieren
 Die App wird **nicht hier** bearbeitet, sondern im Nachbarordner `../OptiApp` (`index.html`).
 ```
-./app-aktualisieren.sh        # kopiert index.html, bg.jpg, fonts/ nach www/, setzt Namen + Polyfills, erzeugt Icons aus Logo 5
+./app-aktualisieren.sh        # kopiert index.html, bg.jpg, fonts/ nach www/, setzt Namen + Polyfills, erzeugt Icons aus Logo 4
 git add -A && git commit -m "App vX.Y" && git push
 ```
 Benötigt lokal: `rsvg-convert`, `magick` (ImageMagick).

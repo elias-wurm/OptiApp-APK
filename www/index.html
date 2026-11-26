@@ -45,16 +45,38 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(-
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer;border:none;background:none}
 
-/* App shell – auf dem Desktop als Handy-Rahmen */
+/* App shell – nur am PC (Maus, ab 600px) als Handy-Rahmen; Handy und Tablet nutzen die volle Breite (v1.15) */
 .app{max-width:440px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;background:var(--bg);position:relative}
-@media (min-width:600px){
+@media (min-width:600px) and (hover:hover) and (pointer:fine){
   body{padding:24px 0;background:linear-gradient(135deg,#e6e4e1,#f2e6e4)}
   .app{height:calc(100vh - 48px);min-height:0;border-radius:36px;overflow:hidden;box-shadow:0 30px 80px rgba(15,61,76,.25);border:8px solid #14232b}
 }
-@media (min-width:600px) and (prefers-color-scheme: dark){ :root:not([data-theme="light"]) body{background:#060b0d} }
-@media (min-width:600px){ :root[data-theme="dark"] body{background:#060b0d} }
+@media (min-width:600px) and (hover:hover) and (pointer:fine) and (prefers-color-scheme: dark){ :root:not([data-theme="light"]) body{background:#060b0d} }
+@media (min-width:600px) and (hover:hover) and (pointer:fine){ :root[data-theme="dark"] body{background:#060b0d} }
 
 header.top{padding:calc(env(safe-area-inset-top) + 18px) 20px 14px;display:flex;align-items:center;justify-content:space-between}
+/* v1.15 Anpassung an die Geräteauflösung: Tablet = volle Breite wie eine App, Kopfzeile auf schmalen Handys kompakter */
+@media not all and (min-width:600px) and (hover:hover) and (pointer:fine){
+  .app{max-width:none}
+  nav.bottom,.chatbar,.push,.lg-edge{max-width:none!important}
+  .scrim{max-width:none!important}
+  .sheet{max-width:640px!important}
+  .onb{max-width:none!important;padding-left:max(24px,calc(50% - 280px))!important;padding-right:max(24px,calc(50% - 280px))!important}
+}
+header.top .logo{min-width:0}
+@media (max-width:400px){
+  header.top{padding-left:14px;padding-right:14px;gap:8px}
+  header.top .logo{gap:8px}
+  header.top .falcon{width:36px;height:36px}
+  .wm-top{font-size:10px;letter-spacing:.14em;padding:3px 1px 3px 5px}
+  .wm-sub{font-size:7.5px;letter-spacing:.02em}
+  header.top .row{gap:5px!important}
+  .store-pill{padding:7px 10px;gap:4px}
+  .store-pill svg{display:none}
+}
+.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}
+.tile{min-width:0;-webkit-hyphens:auto;hyphens:auto;overflow-wrap:break-word}
+@media (max-width:340px){header.top .wordmark{display:none}}
 .logo{display:flex;align-items:center;gap:10px}
 .logo-mark{width:34px;height:34px;border-radius:50%;background:var(--brand);display:grid;place-items:center}
 .logo-mark svg{width:20px;height:20px;stroke:var(--bg)}
@@ -206,7 +228,7 @@ textarea.input{min-height:90px;resize:vertical}
 .push.on{transform:none}
 .push .falcon{width:40px;height:40px;border-radius:10px;background:var(--surface-2)}.push .falcon img{width:80%;height:80%}
 .push small{color:var(--muted);font-size:12px}
-@media (max-width:599px){.push{position:fixed;max-width:416px;margin:0 auto}}
+@media not all and (min-width:600px) and (hover:hover) and (pointer:fine){.push{position:fixed;max-width:416px;margin:0 auto}}
 .notice{display:flex;gap:12px;align-items:center;text-align:left;width:100%;margin-top:14px;padding:14px 16px;border-radius:var(--radius);background:var(--warn-soft);color:var(--ink)}
 .notice .big-star{font-size:24px}
 /* Sterne */
@@ -258,7 +280,7 @@ main,.sheet,.chatbar,.onb{zoom:var(--fs,1)}
 /* Erststart */
 .onb{position:absolute;inset:0;z-index:50;background:var(--bg);overflow-y:auto;padding:calc(env(safe-area-inset-top) + 28px) 24px 30px;display:none}
 .onb.on{display:block}
-@media (max-width:599px){.onb{position:fixed;max-width:440px;margin:0 auto}}
+@media not all and (min-width:600px) and (hover:hover) and (pointer:fine){.onb{position:fixed;max-width:440px;margin:0 auto}}
 .onb .hero-logo{display:flex;flex-direction:column;align-items:center;gap:14px;margin:24px 0 26px;text-align:center}
 .onb .hero-logo img{width:110px;height:110px}
 .onb .steps{display:flex;gap:6px;justify-content:center;margin-bottom:18px}
@@ -321,7 +343,7 @@ main,.sheet,.chatbar,.onb{zoom:var(--fs,1)}
 .chatbar .cb{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;flex-shrink:0;background:var(--surface-2);color:var(--ink)}
 .chatbar .cb.send{background:var(--accent);color:#fff}
 .chatbar .cb svg{width:20px;height:20px}
-@media (max-width:599px){.chatbar{position:fixed;max-width:440px;margin:0 auto}}
+@media not all and (min-width:600px) and (hover:hover) and (pointer:fine){.chatbar{position:fixed;max-width:440px;margin:0 auto}}
 
 /* Filial-Pill */
 .store-pill{display:flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;background:var(--surface);box-shadow:var(--shadow);font-size:13px;font-weight:600}
@@ -333,6 +355,10 @@ main,.sheet,.chatbar,.onb{zoom:var(--fs,1)}
 .store-opt.on .radio{border-color:var(--accent)}
 .store-opt.on .radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--accent)}
 .mapframe{width:calc(100% + 36px);height:170px;border:0;margin:-18px -18px 16px;border-radius:var(--radius) var(--radius) 0 0;display:block;filter:grayscale(.3)}
+.mapconsent{box-sizing:border-box;height:auto;min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:14px 22px;text-align:center;background:rgba(127,127,127,.12);border-bottom:1px solid var(--line);filter:none!important}
+.mapconsent p{margin:0;font-size:14px;opacity:.85}
+.mapconsent .btn{width:auto;margin:0;padding:8px 18px}
+.mapconsent .linkbtn{background:none;border:0;color:inherit;opacity:.7;font:inherit;font-size:13px;text-decoration:underline;cursor:pointer;padding:2px}
 .open-state{font-size:13px;font-weight:600}
 .open-state.o{color:var(--ok)} .open-state.c{color:var(--danger)}
 .hours small{display:block;font-size:12px;color:var(--muted);font-weight:400}
@@ -343,14 +369,14 @@ nav.bottom{position:absolute;left:0;right:0;bottom:0;background:var(--surface);b
 nav.bottom button{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;font-size:11px;font-weight:600;color:var(--muted)}
 nav.bottom button svg{width:23px;height:23px}
 nav.bottom button.on{color:var(--brand)}
-@media (max-width:599px){nav.bottom{position:fixed;max-width:440px;margin:0 auto}}
+@media not all and (min-width:600px) and (hover:hover) and (pointer:fine){nav.bottom{position:fixed;max-width:440px;margin:0 auto}}
 
 /* Bottom sheet */
 .scrim{position:absolute;inset:0;background:rgba(10,20,25,.45);opacity:0;pointer-events:none;transition:.25s;z-index:20}
 .scrim.on{opacity:1;pointer-events:auto}
 .sheet{position:absolute;left:0;right:0;bottom:0;max-height:92%;background:var(--surface);border-radius:26px 26px 0 0;transform:translateY(105%);transition:transform .3s cubic-bezier(.2,.8,.2,1);z-index:21;display:flex;flex-direction:column}
 .sheet.on{transform:none}
-@media (max-width:599px){.scrim,.sheet{position:fixed;max-width:440px;margin:0 auto}}
+@media not all and (min-width:600px) and (hover:hover) and (pointer:fine){.scrim,.sheet{position:fixed;max-width:440px;margin:0 auto}}
 .sheet-head{padding:12px 20px 8px;display:flex;align-items:center;justify-content:space-between}
 .grip{width:40px;height:5px;border-radius:99px;background:var(--line);margin:8px auto 0}
 .sheet-body{padding:0 20px calc(env(safe-area-inset-bottom) + 24px);overflow-y:auto}
@@ -360,7 +386,7 @@ nav.bottom button.on{color:var(--brand)}
 
 .toast{pointer-events:none;position:absolute;left:50%;bottom:96px;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:14px;font-weight:500;font-size:14px;opacity:0;transition:.25s;z-index:30;white-space:nowrap}
 .toast.on{opacity:1;transform:translate(-50%,0)}
-@media (max-width:599px){.toast{position:fixed}}
+@media not all and (min-width:600px) and (hover:hover) and (pointer:fine){.toast{position:fixed}}
 
 .map{height:150px;border-radius:14px;margin:-18px -18px 16px;background:
   linear-gradient(90deg,transparent 48%,var(--line) 48% 52%,transparent 52%),
@@ -387,10 +413,10 @@ nav.bottom button.on{color:var(--brand)}
 }
 html{background:#141922 url(bg.jpg) center/cover fixed}
 body,body[style]{background:transparent!important}
-@media (min-width:600px){body{background:transparent!important}
+@media (min-width:600px) and (hover:hover) and (pointer:fine){body{background:transparent!important}
   .app{border:1px solid rgba(255,255,255,.22)!important;box-shadow:0 40px 100px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.18)!important;border-radius:40px!important}}
 .app{background:rgba(16,20,28,.28)!important}
-@media (min-width:600px){.app{-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}}
+@media (min-width:600px) and (hover:hover) and (pointer:fine){.app{-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}}
 h1,.logo-text,.hero .big,.avatar{font-family:'DM Sans',system-ui,sans-serif!important;font-weight:700;letter-spacing:-.02em}
 h2{color:rgba(255,255,255,.55)}
 /* Glasflächen */
@@ -486,7 +512,7 @@ nav.bottom:has(button:active) .lg-lens{transform:scale(1.06,1.12);background:rgb
   background:linear-gradient(to top,rgba(10,12,18,.88) 0%,rgba(10,12,18,.7) 40%,rgba(10,12,18,0) 100%);
   -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
   -webkit-mask-image:linear-gradient(to top,#000 45%,transparent);mask-image:linear-gradient(to top,#000 45%,transparent)}
-@media (max-width:599px){.lg-edge{position:fixed;max-width:440px;margin:0 auto}}
+@media not all and (min-width:600px) and (hover:hover) and (pointer:fine){.lg-edge{position:fixed;max-width:440px;margin:0 auto}}
 .app:has(.chatbar.on) .lg-edge{height:calc(170px + env(safe-area-inset-bottom))}
 /* Chatleiste schwebt über der Tableiste */
 .chatbar{bottom:calc(76px + env(safe-area-inset-bottom))!important;background:transparent!important;border-top:0!important;padding:6px 14px!important}
@@ -504,7 +530,7 @@ html[data-gt="light"]:root:root:root{--bg:#ECEFF3; --ink:#141922; --muted:rgba(2
 --ok:#1E9566; --ok-soft:rgba(30,149,102,.13); --warn:#B7700F; --warn-soft:rgba(220,150,40,.16); --danger:#D23F3F; color-scheme:light; --brand:#141922; --brand-2:#2A303B; --brand-soft:rgba(20,25,34,.07);
   --shadow:0 10px 30px rgba(20,25,34,.08),inset 0 1px 0 rgba(255,255,255,.9)}
 html[data-gt="light"] .app{background:rgba(255,255,255,.28)!important}
-@media (min-width:600px){html[data-gt="light"] .app{border-color:rgba(20,25,34,.12)!important;box-shadow:0 40px 100px rgba(20,25,34,.16),inset 0 1px 0 #fff!important}}
+@media (min-width:600px) and (hover:hover) and (pointer:fine){html[data-gt="light"] .app{border-color:rgba(20,25,34,.12)!important;box-shadow:0 40px 100px rgba(20,25,34,.16),inset 0 1px 0 #fff!important}}
 html[data-gt="light"] h2{color:rgba(20,25,34,.5)}
 html[data-gt="light"] .tile:hover,html[data-gt="light"] .qa:hover{background:rgba(255,255,255,.85)}
 html[data-gt="light"] .hero{background:rgba(255,255,255,.62)!important;border-color:rgba(255,255,255,.95)}
@@ -674,7 +700,7 @@ html[data-gt="light"] .scrim{background:rgba(20,25,34,.35)!important}
         <button class="list-item" style="width:100%;text-align:left" onclick="demoPush()"><div class="grow">Demo: Bewertungs-Benachrichtigung zeigen</div></button>
         <button class="list-item" style="width:100%;text-align:left;color:var(--danger)" onclick="resetDemo()"><div class="grow">Demo-Daten zurücksetzen</div></button>
       </div>
-      <p class="muted-s" style="text-align:center;margin-top:20px">Prototyp v1.13 · Kundendaten sind Beispieldaten</p>
+      <p class="muted-s" style="text-align:center;margin-top:20px">Prototyp v1.17 · Kundendaten sind Beispieldaten</p>
     </section>
   </main>
 
@@ -913,7 +939,7 @@ function renderHome(){
   const st=lensStock(), low=st.days<=30, g=latestGlasses(), V=S.loyalty.vouchers.length;
   document.getElementById('passTiles').innerHTML=`
     <button class="tile" onclick="go('glasses')"><span class="ic">${ICON_GLASSES}</span><b>Brillenpass</b><span class="muted-s">${g?'Werte vom '+fmtDate(g.date):'Noch keine Werte'}</span></button>
-    <button class="tile" onclick="go('lenses')"><span class="ic" style="background:var(--accent-soft);color:var(--accent)">${ICON_LENS}</span><b>Kontaktlinsenpass</b>
+    <button class="tile" onclick="go('lenses')"><span class="ic" style="background:var(--accent-soft);color:var(--accent)">${ICON_LENS}</span><b>Kontaktlinsen&shy;pass</b>
       <span class="muted-s ${S.lenses&&low?'warn':''}">${!S.lenses?'Noch keine Linsen hinterlegt':low?'Vorrat: noch '+st.days+' Tage':'Vorrat ausreichend'}</span>
       ${V?`<span class="badge warn" style="align-self:flex-start">🎁 Gutschein bereit</span>`:stamps(true)}</button>`;
 }
@@ -1013,6 +1039,8 @@ function openStatus(st){
   const r=st.hours[d].find(x=>!x[2]&&hm>=x[0]&&hm<x[1]);
   return r?{o:true,t:'Jetzt geöffnet · bis '+r[1]+' Uhr'}:{o:false,t:'Derzeit geschlossen'};
 }
+/* v1.16 Google-Maps-Karte erst nach Einwilligung laden; v1.17 Hinweis nennt Cookies und USA-Übermittlung */
+function setMapsConsent(on){S.mapsOk=!!on;persist();if(!on){closeSheet();toast('Karten-Einwilligung widerrufen')}render()}
 function renderStore(){
   const st=curStore(), td=(new Date().getDay()+6)%7, os=openStatus(st), ll=st.lat+','+st.lng;
   const my=S.reviews.filter(r=>r.store===st.id).slice(-1)[0];
@@ -1020,7 +1048,7 @@ function renderStore(){
   document.getElementById('storeSeg').innerHTML=Object.values(STORES).map(x=>`<button class="${x.id===st.id?'on':''}" onclick="setStore('${x.id}',true)">${x.name}</button>`).join('');
   document.getElementById('storeView').innerHTML=`
     <div class="card mt" style="padding-top:18px">
-      <iframe class="mapframe" loading="lazy" title="Karte" src="https://maps.google.com/maps?q=${ll}&z=16&output=embed"></iframe>
+      ${S.mapsOk?`<iframe class="mapframe" loading="lazy" title="Karte" src="https://maps.google.com/maps?q=${ll}&z=16&output=embed"></iframe>`:`<div class="mapframe mapconsent"><p><b>Karte von Google Maps laden?</b> Dabei erhält Google (Google Ireland Ltd.) Ihre IP-Adresse, kann Cookies setzen und Daten auch in die USA übermitteln (EU-US Data Privacy Framework). Sie können die Einwilligung jederzeit in der Datenschutzerklärung widerrufen.</p><button class="btn ghost" onclick="setMapsConsent(true)">Karte laden</button><button class="linkbtn" onclick="openSheet('legal','privacy')">Mehr in der Datenschutzerklärung</button></div>`}
       <h3>${esc(st.full)}</h3>
       <p class="sub">${esc(st.street)}, ${esc(st.zip)} · ${st.tel}</p>
       <p class="open-state ${os.o?'o':'c'} mt">${os.t}</p>
@@ -1139,6 +1167,8 @@ function sheetLegal(kind){
     ${sec('Gesundheitsdaten','Sehwerte sind Gesundheitsdaten (Art. 9 DSGVO). Wir verarbeiten sie nur mit Ihrer ausdrücklichen Einwilligung, die Sie beim Erststart erteilt haben und jederzeit widerrufen können.')}
     ${sec('Zweck & Rechtsgrundlage','Durchführung Ihrer Aufträge und Termine (Vertrag, Art. 6 Abs. 1 lit. b), Erinnerungen und Benachrichtigungen (Einwilligung, Art. 6 Abs. 1 lit. a), gesetzliche Aufbewahrungspflichten (Art. 6 Abs. 1 lit. c).')}
     ${sec('Speicherort & Empfänger',`Daten werden ${ph('Anbieter, Serverstandort EU')} gespeichert. Eine Weitergabe erfolgt nur, wenn nötig – z. B. an die Versicherung im Vollkasko-Fall.`)}
+    ${sec('Karten (Google Maps)','Bei den Filialen zeigen wir eine Karte von Google Maps (Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland). Beim Anzeigen der Karte wird Ihre IP-Adresse an Google übertragen; Google kann dabei Cookies setzen und Daten auch in die USA übermitteln (EU-US Data Privacy Framework). Die Karte wird erst geladen, wenn Sie bei der Filiale „Karte laden“ antippen. Zweck ist die Anfahrt zu unseren Filialen, Rechtsgrundlage ist Ihre Einwilligung (Art. 6 Abs. 1 lit. a DSGVO), die Sie jederzeit hier widerrufen können. Die Schaltfläche „Route“ öffnet Google Maps erst, wenn Sie sie antippen. Details: policies.google.com/privacy')}
+    ${S.mapsOk?`<button class="btn ghost" style="margin-top:10px" onclick="setMapsConsent(false)">Karten-Einwilligung widerrufen</button>`:''}
     ${sec('Speicherdauer','Solange Sie Kunde sind bzw. die App nutzen, darüber hinaus nur im Rahmen gesetzlicher Aufbewahrungsfristen (z. B. 7 Jahre für Rechnungen).')}
     ${sec('Ihre Rechte','Auskunft, Berichtigung, Löschung, Einschränkung, Datenübertragbarkeit, Widerspruch und Widerruf Ihrer Einwilligung. Beschwerden richten Sie an die Österreichische Datenschutzbehörde (dsb.gv.at).')}
     <p class="muted-s" style="margin-top:18px">Prototyp: Mustertext – vor Veröffentlichung rechtlich prüfen lassen.</p>`);
