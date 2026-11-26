@@ -9,7 +9,7 @@ APPNAME="Mein Optiker"
 
 # --- App kopieren -------------------------------------------------------
 rm -rf www && mkdir -p www/fonts
-cp "$SRC/index.html" "$SRC/bg.jpg" www/
+cp "$SRC/index.html" "$SRC/bg.jpg" "$SRC/optiker.js" www/   # optiker.js: Optiker-Profile (seit App v1.19)
 cp "$SRC"/fonts/* www/fonts/
 
 # Name, Titel und Polyfills für ältere WebViews (Android 6) nur in der APK-Kopie
@@ -19,7 +19,10 @@ sed -i \
   www/index.html
 POLY='<script>/* APK: Polyfills für ältere Android-WebViews */if(!Array.prototype.flat)Object.defineProperty(Array.prototype,"flat",{configurable:true,writable:true,value:function(d){d=d===undefined?1:d;return this.reduce(function(a,v){return a.concat(Array.isArray(v)\&\&d>0?v.flat(d-1):v)},[])}});if(!Array.prototype.flatMap)Object.defineProperty(Array.prototype,"flatMap",{configurable:true,writable:true,value:function(f,t){return this.map(f,t).flat()}});</script>'
 sed -i "0,/<meta charset=\"UTF-8\">/s|<meta charset=\"UTF-8\">|<meta charset=\"UTF-8\">\n$POLY|" www/index.html
-rm -rf fonts && cp -r www/index.html www/bg.jpg www/fonts .   # Root-Kopie für GitHub Pages (wie bisher)
+# Kennung „läuft als APK“: Demo-Auswahl des Optikers wird gespeichert (Start: Muster Optik), siehe optiker.js
+grep -q '<script src="optiker.js"></script>' www/index.html || { echo "optiker.js-Einbindung fehlt in index.html" >&2; exit 1; }
+sed -i 's|<script src="optiker.js"></script>|<script>window.OPTIAPP_APK=true</script><script src="optiker.js"></script>|' www/index.html
+rm -rf fonts && cp -r www/index.html www/bg.jpg www/optiker.js www/fonts .   # Root-Kopie für GitHub Pages (wie bisher)
 
 # --- Icons aus Logo 4 ---------------------------------------------------
 LOGO=assets/logo5.svg
